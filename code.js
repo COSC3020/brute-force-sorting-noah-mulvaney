@@ -43,4 +43,6 @@ function permutationSort(arr) {
             return i + 1;
         }
     }
+    
+    return 0;
 }
