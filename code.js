@@ -1,10 +1,8 @@
 // COSC3020 Brute Force Sorting
 // Noah Mulvaney
-// 5 Apr 2024
+// 10 Apr 2024
 
 // Determine if a list is sorted
-//      Returns true or false
-//      Assumes comparision is a transitive ordering
 function isSorted(arr) {
     for (let i = 1; i < arr.length; ++i)
         if (arr[i - 1] > arr[i]) return false;
@@ -14,7 +12,9 @@ function isSorted(arr) {
 
 // Get array of possible permutations of arr
 //      Based on algorithm from https://www.tutorialspoint.com/generating-all-possible-permutations-of-array-in-javascript
-function perm(arr) {
+function permutationSort(sortArr, arr) {
+    if (arr == null) arr = sortArr;
+    
     let perms = [];
     
     if (arr.length == 0) return [];
@@ -22,10 +22,17 @@ function perm(arr) {
     
     for (let i = 0; i < arr.length; ++i) {
         let n = arr[i];
-        let subPerms = perm(arr.slice(0, i).concat(arr.slice(i + 1)));
+        let subPerms = permutationSort(null, arr.slice(0, i).concat(arr.slice(i + 1)));
         
         for (let j = 0; j < subPerms.length; ++j) {
             let posPerm = [n].concat(subPerms[j]);
+            
+            if (sortArr != null && isSorted(posPerm)) {
+                for (let k = 0; k < sortArr.length; ++k)
+                    sortArr[k] = posPerm[k];
+                return i * sortArr.length + j;
+            }
+            
             perms.push(posPerm);
         }
     }
@@ -33,16 +40,8 @@ function perm(arr) {
     return perms;
 }
 
-// Sorts list and returns # of permuations tried
-function permutationSort(arr) {
-    let perms = perm(arr);
-    for (let i = 0; i < perms.length; ++i) {
-        if (isSorted(perms[i])) {
-            for (let j = 0; j < arr.length; ++j)
-                arr[j] = perms[i][j];
-            return i + 1;
-        }
-    }
-    
-    return 0;
-}
+/* Debug
+let arr = [2, 7, 5, 3, 1, 9, 8];
+console.log(permutationSort(arr));
+console.log(arr);
+*/
