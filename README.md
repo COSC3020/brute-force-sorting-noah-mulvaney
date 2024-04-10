@@ -19,5 +19,4 @@ a best case input for your implementation look like, what does a worst case
 input look like? How would this complexity change if you generated permutations
 randomly without memory instead of systematically trying them?
 
-Describe your reasoning and the conclusion you've come to. Your reasoning is the
-most important part. Add your answer to this markdown file.
+My implementation has an average complexity of $\Theta(n^n)$. Each recursive level has a complexity of approximately $n T(n-1) + n*n! + n^2$. For $i=n-3$ levels of recursion, this results in an approximate time complexity of $n^n + n^n n! + n^n$ which is an element of $\Theta(n^n)$.
