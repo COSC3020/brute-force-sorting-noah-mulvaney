@@ -20,3 +20,7 @@ input look like? How would this complexity change if you generated permutations
 randomly without memory instead of systematically trying them?
 
 My implementation has an average complexity of $\Theta(n^n)$. Each recursive level has a complexity of approximately $n T(n-1) + n*n! + n^2$. For $i=n-3$ levels of recursion, this results in an approximate time complexity of $n^n + n^n n! + n^n$ which is an element of $\Theta(n^n)$.
+
+The best case input is an already sorted array, because my implementation will recursively form the permutations beginning with the first item in the array. For the same reason, a reverse sorted array is the worst case input. There are $n!$ possible permutations. If you generated random permutations (with repetition or replacement) rather than systematically checking them, the expected number of permutations to check is $n!$. My implementation obviously adds a lot of additional overhead complexity checking and copying the array.
+
+Note: Referenced https://math.stackexchange.com/questions/1119872/on-average-how-many-times-must-i-roll-a-dice-until-i-get-a-6 for help understanding the expected number of permutations.
